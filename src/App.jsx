@@ -21,9 +21,13 @@ function App() {
 
       <PartyDetails />
 
-      <p className='read-the-docs'>
-        We can't wait to celebrate with you! 🎉 See you on May 3rd at 4:00 PM!
+      <p className='end'>
+        We can't wait to celebrate with you! 🎉 
       </p>
+
+      <p className='read-the-docs'>
+        made with ❤️ by <a href="https://github.com/worktree28" >💻</a>
+        </p>
     </>
   );
 }

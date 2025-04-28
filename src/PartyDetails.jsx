@@ -1,6 +1,9 @@
-import React from 'react';
+import React, { useState } from 'react';
+import RSVPPopup from './RSVPPopup';
 
 const PartyDetails = () => {
+  const [isPopupOpen, setIsPopupOpen] = useState(false);
+
   // Party details data
   const details = [
     {
@@ -43,6 +46,14 @@ const PartyDetails = () => {
     },
   ];
 
+  const handleRSVPClick = () => {
+    setIsPopupOpen(true);
+  };
+
+  const handleClosePopup = () => {
+    setIsPopupOpen(false);
+  };
+
   return (
     <div className='party-details-container'>
       <h3 className='party-details-heading'>Party Details</h3>
@@ -50,9 +61,11 @@ const PartyDetails = () => {
       <div className='party-details-cards'>
         {details.map((detail) => (
           <div key={detail.id} className='party-detail-card'>
-            <div className='party-detail-icon'>{detail.icon}</div>
+            {/* <div className='party-detail-icon'>{detail.icon}</div> */}
             <div className='party-detail-content'>
-              <h4 className='party-detail-title'>{detail.title}</h4>
+              <h4 className='party-detail-title'>
+                {detail.icon} {detail.title}
+              </h4>
               {detail.isLink ? (
                 <a
                   href={detail.link}
@@ -70,7 +83,12 @@ const PartyDetails = () => {
         ))}
       </div>
 
-      <button className='rsvp-button'>RSVP Now</button>
+      <button className='rsvp-button' onClick={handleRSVPClick}>
+        RSVP Now
+      </button>
+
+      {/* RSVP Popup */}
+      <RSVPPopup isOpen={isPopupOpen} onClose={handleClosePopup} />
     </div>
   );
 };
