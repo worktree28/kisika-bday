@@ -1,0 +1,78 @@
+.rotating-image-container {
+  position: fixed;
+  bottom: 0; /* Position at the very bottom */
+  z-index: 20; /* Higher z-index to ensure visibility */
+  width: 180px;
+  height: 180px;
+  pointer-events: none; /* Make sure it doesn't interfere with clicks */
+}
+
+.rotating-image-left {
+  left: 0;
+  transform: translateX(-30%); /* Move partially off-screen for edge effect */
+}
+
+.rotating-image-right {
+  right: 0;
+  transform: translateX(30%); /* Move partially off-screen for edge effect */
+}
+
+.rotating-image {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  animation: rotate 12s linear infinite; /* 5 RPM = 12 seconds per rotation */
+  transform-origin: center center;
+  filter: drop-shadow(0 0 10px rgba(0, 0, 0, 0.5));
+  transition: transform 0.3s ease-out; /* Smooth transition for pointing */
+}
+
+/* All images should have center transform origin */
+.rotating-image {
+  transform-origin: center center;
+}
+
+/* Reverse rotation for the right image */
+.rotating-image-right .rotating-image {
+  animation: rotate-reverse 12s linear infinite;
+}
+
+/* No need for a separate rule for the right image pointing,
+   as the .pointing class already handles pausing for both */
+
+@keyframes rotate {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+@keyframes rotate-reverse {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(-360deg);
+  }
+}
+
+/* Media query for smaller screens */
+@media (max-width: 768px) {
+  .rotating-image-container {
+    width: 120px;
+    height: 120px;
+    bottom: 0; /* Position at the very bottom */
+  }
+
+  .rotating-image-left {
+    left: 0;
+    transform: translateX(-20%);
+  }
+
+  .rotating-image-right {
+    right: 0;
+    transform: translateX(20%);
+  }
+}

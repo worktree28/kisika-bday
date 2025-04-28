@@ -1,0 +1,277 @@
+:root {
+  font-family: system-ui, Avenir, Helvetica, Arial, sans-serif;
+  line-height: 1.5;
+  font-weight: 400;
+
+  color-scheme: light dark;
+  color: rgba(255, 255, 255, 0.95);
+
+  font-synthesis: none;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+
+  /* Variables for scroll-based effects */
+  --overlay-opacity: 1;
+  --stars-opacity: 0;
+  --stars-tint: 0;
+  --window-light: 0;
+}
+
+a {
+  font-weight: 500;
+  color: #646cff;
+  text-decoration: inherit;
+}
+a:hover {
+  color: #535bf2;
+}
+
+body {
+  margin: 0;
+  display: flex;
+  justify-content: center;
+  min-width: 320px;
+  min-height: 100vh;
+  /* Starry night background with gradient (fixed) */
+  background: linear-gradient(to bottom, #17397061, #0a192f);
+  background-size: 100% 100%;
+  background-attachment: fixed;
+  overflow-y: auto;
+  position: relative;
+  z-index: 0;
+  /* Optimize scrolling */
+  -webkit-overflow-scrolling: touch; /* Smooth scrolling on iOS */
+}
+
+/* Gradient overlay that fades out on scroll */
+.gradient-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(
+    to top,
+    #220202 0%,
+    #AD4A28 15%,
+    #DD723C 30%,
+    #ffa256 45%,
+    #dfb593 60%,
+    #a0b4c9 75%,
+    #5d7ea8 85%,
+    #385479 95%
+  );
+  opacity: var(--overlay-opacity);
+  pointer-events: none;
+  z-index: -1;
+  transition: opacity 0.3s steps(5);
+  will-change: opacity;
+  transform: translateZ(0);
+}
+
+h1 {
+  font-size: 3.2em;
+  line-height: 1.1;
+}
+
+button {
+  border-radius: 8px;
+  border: 1px solid transparent;
+  padding: 0.6em 1.2em;
+  font-size: 1em;
+  font-weight: 500;
+  font-family: inherit;
+  background-color: #1a1a1a;
+  cursor: pointer;
+  transition: border-color 0.25s;
+}
+button:hover {
+  border-color: #646cff;
+}
+button:focus,
+button:focus-visible {
+  outline: 4px auto -webkit-focus-ring-color;
+}
+
+/* Stars styling */
+.stars {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: -1;
+  opacity: var(--stars-opacity);
+  /* Use steps() for transition to reduce intermediate renders */
+  transition: opacity 0.3s steps(5), transform 0.3s steps(3);
+  pointer-events: none;
+  background-color: rgba(10, 25, 47, 0.1);
+  mix-blend-mode: screen;
+  will-change: opacity, transform;
+  transform: translateZ(0);
+}
+
+.star {
+  position: absolute;
+  width: 2px;
+  height: 2px;
+  background-color: white;
+  border-radius: 50%;
+  animation: twinkle 3s infinite;
+  will-change: opacity, transform;
+  transform-style: preserve-3d;
+  filter: sepia(calc(var(--stars-tint) * 0.7)) hue-rotate(-20deg);
+  transition: filter 0.3s steps(5);
+  backface-visibility: hidden; /* Optimization for animations */
+}
+
+/* Add some larger stars with a glow effect */
+.star:nth-child(7n) {
+  width: 3px;
+  height: 3px;
+  box-shadow: 0 0 3px white;
+}
+
+.star:nth-child(11n) {
+  width: 4px;
+  height: 4px;
+  box-shadow: 0 0 4px rgba(255, 223, 170, 0.8);
+  background-color: rgba(255, 223, 170, 0.8);
+  transition: background-color 0.5s ease, box-shadow 0.5s ease, filter 0.5s ease;
+}
+
+@keyframes twinkle {
+  0% { opacity: 0.2; transform: scale(0.8); }
+  50% { opacity: 1; transform: scale(1.1); }
+  100% { opacity: 0.2; transform: scale(0.8); }
+}
+
+/* Add a second twinkle animation for variety */
+.star:nth-child(3n) {
+  animation-name: twinkle-alt;
+}
+
+@keyframes twinkle-alt {
+  0% { opacity: 0.3; }
+  30% { opacity: 0.8; }
+  70% { opacity: 0.3; }
+  85% { opacity: 0.7; }
+  100% { opacity: 0.3; }
+}
+
+/* Buildings styling */
+.buildings-container {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  height: 60vh; /* Takes 60% of vertical space (2x taller) */
+  z-index: 1;
+  pointer-events: none;
+  transform: translateZ(0); /* Hardware acceleration */
+  will-change: transform; /* Hint for browser optimization */
+}
+
+.building {
+  position: absolute;
+  bottom: 0;
+  border-radius: 4px 4px 0 0;
+  box-shadow: 0 0 20px rgba(0, 0, 0, 0.5);
+  overflow: hidden;
+}
+
+/* Roof details for taller buildings */
+.building::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 5%;
+  background: rgba(255, 255, 255, 0.05);
+  border-radius: 4px 4px 0 0;
+}
+
+/* Add architectural details to buildings */
+.building::before {
+  content: '';
+  position: absolute;
+  top: 5%;
+  left: 0;
+  width: 100%;
+  height: 1px;
+  background: rgba(255, 255, 255, 0.1);
+  box-shadow: 0 0 5px rgba(255, 255, 255, 0.1);
+}
+
+.building-window {
+  position: absolute;
+  width: 1vw;
+  height: 1.2vw;
+  background-color: rgba(255, 255, 255, 0.05);
+  border-radius: 2px;
+  box-shadow: inset 0 0 2px rgba(0, 0, 0, 0.5);
+  transition: background-color 0.3s steps(5), box-shadow 0.3s steps(5);
+  /* Warm light color that increases with scroll */
+  background-color: rgba(255, 200, 120, calc(var(--window-light) * 0.5));
+  box-shadow: 0 0 calc(var(--window-light) * 12px) rgba(255, 160, 60, calc(var(--window-light) * 0.7));
+  will-change: background-color, box-shadow;
+}
+
+/* Random window colors for variety */
+.building-window:nth-child(3n) {
+  background-color: rgba(255, 220, 150, calc(var(--window-light) * 0.5));
+  box-shadow: 0 0 calc(var(--window-light) * 10px) rgba(255, 180, 80, calc(var(--window-light) * 0.7));
+}
+
+.building-window:nth-child(5n) {
+  background-color: rgba(255, 180, 100, calc(var(--window-light) * 0.5));
+  box-shadow: 0 0 calc(var(--window-light) * 15px) rgba(255, 140, 40, calc(var(--window-light) * 0.7));
+}
+
+/* Additional window variety for taller buildings */
+.building-window:nth-child(7n) {
+  background-color: rgba(255, 235, 180, calc(var(--window-light) * 0.5));
+  box-shadow: 0 0 calc(var(--window-light) * 12px) rgba(255, 200, 100, calc(var(--window-light) * 0.7));
+}
+
+@media (prefers-color-scheme: light) {
+  :root {
+    color: #213547;
+  }
+  body {
+    /* Lighter starry night background with gradient for light mode */
+    background: linear-gradient(to bottom, #2a5999, #132f50);
+  }
+  .gradient-overlay {
+    /* Same gradient but slightly brighter for light mode */
+    background: linear-gradient(
+      to top,
+      #220202 0%,
+      #AD4A28 15%,
+      #DD723C 30%,
+      #ffa256 45%,
+      #dfb593 60%,
+      #a0b4c9 75%,
+      #5d7ea8 85%,
+      #385479 95%
+    );
+  }
+  a:hover {
+    color: #747bff;
+  }
+  button {
+    background-color: rgba(249, 249, 249, 0.8);
+  }
+
+  /* Light mode building adjustments */
+  .building {
+    box-shadow: 0 0 15px rgba(0, 0, 0, 0.3);
+  }
+
+  .building-window {
+    background-color: rgba(255, 220, 150, calc(var(--window-light) * 0.5));
+    box-shadow: 0 0 calc(var(--window-light) * 12px) rgba(255, 180, 80, calc(var(--window-light) * 0.8));
+  }
+}
