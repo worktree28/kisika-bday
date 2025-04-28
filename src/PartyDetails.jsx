@@ -10,7 +10,7 @@ const PartyDetails = () => {
       id: 1,
       icon: '🗓️',
       title: 'Date & Time',
-      content: 'May 3rd, 2024 at 4:00 PM IST',
+      content: 'Sat, May 3rd, 2024 at 5:30 PM IST',
     },
     {
       id: 2,
@@ -84,7 +84,7 @@ const PartyDetails = () => {
       </div>
 
       <button className='rsvp-button' onClick={handleRSVPClick}>
-        RSVP Now
+        RSVP
       </button>
 
       {/* RSVP Popup */}

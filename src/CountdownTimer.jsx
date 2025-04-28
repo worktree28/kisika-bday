@@ -1,8 +1,7 @@
 import React, { useState, useEffect } from 'react';
 
 const CountdownTimer = ({ targetDate }) => {
-  // Hard-coded target date for May 3rd, 2024 at 4:00 PM IST
-  const MAY_3_2025_4PM_IST = new Date('2025-05-03T10:30:00.000Z');
+  const TIME = new Date('2025-05-03T12:00:00.000Z');
 
   const [timeLeft, setTimeLeft] = useState({
     days: 0,
@@ -15,7 +14,7 @@ const CountdownTimer = ({ targetDate }) => {
     // Function to calculate time left
     const calculateTimeLeft = () => {
       const now = new Date();
-      const difference = MAY_3_2025_4PM_IST - now;
+      const difference = TIME - now;
       console.log(difference);
       if (difference > 0) {
         return {
@@ -49,9 +48,9 @@ const CountdownTimer = ({ targetDate }) => {
   return (
     <div className='countdown-container'>
       <div className='countdown-title'>
-        Time Until The Party:
+        See you in:
         <div className='countdown-target-date'>
-          Friday, May 3, 2025 at 4:00 PM IST
+          Friday, May 3, 2025 at 5:30 PM IST
         </div>
       </div>
       <div className='countdown-timer'>

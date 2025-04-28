@@ -14,7 +14,7 @@ const RSVPPopup = ({ isOpen, onClose }) => {
         </p>
         <div className="popup-contacts">
           <div className="popup-contact">
-            <span className="popup-contact-name">Sharvs</span>
+            <span className="popup-contact-name">Sharvs or Apala</span>
             <a 
               href="https://wa.me/" 
               target="_blank" 
@@ -22,19 +22,7 @@ const RSVPPopup = ({ isOpen, onClose }) => {
               className="popup-whatsapp-button"
             >
               <span className="popup-whatsapp-icon">📱</span>
-              WhatsApp
-            </a>
-          </div>
-          <div className="popup-contact">
-            <span className="popup-contact-name">Apala</span>
-            <a 
-              href="https://wa.me/" 
-              target="_blank" 
-              rel="noopener noreferrer"
-              className="popup-whatsapp-button"
-            >
-              <span className="popup-whatsapp-icon">📱</span>
-              WhatsApp
+              Open WhatsApp ↗
             </a>
           </div>
         </div>
